@@ -1,0 +1,156 @@
+﻿# mq 配置
+rabbitmq:
+  mq_url: amqp://guest:guest@rabbitmq.clizard.team:5672/%2F  # dev
+  exchange: ec_wind_particle
+  exchange_type: fanout
+  queue_name: gzfb_analyse_pic
+  send_exchange: ec_wind_particle_result  # 发送通知消息
+  imageName: [ MRR,DSD,RadarSection,DsdRainRate,DDAWind,CWR,MWR,CR,REF,Lliner,GPSliner,RDwind,EffectAnalysis,WeatherRadar,FY4A,Spaticl]    # 当前算法名，对应消息中添加
+
+minio:
+  addr: 172.17.73.180:30090
+  access_key: root
+  secret_key: Ecoweather@2022
+  secure: False
+  default_bucket: ""
+
+# 挂载路径配置
+path:
+  # 公共路径配置
+  disk: C:/eco/data/
+  minio_disk: ""  # 需要替换的minio路径
+  pic_save_path: C:/eco/data/product
+  file_save_path: C:/eco/data/product
+
+# 微雨雷达配置
+mrr:
+  # 算法程序exe路径
+  exe_path: C:\Users\Administrator\Desktop\gzfb_code\radar_analysis_pic\exe\MRR\MRR.exe
+  # 原始数据文件路径
+  origin_data: X:\mrr\AveData
+  # 算法程序输出文件路径
+  exe_out_path: C:\csi-fs\product\mrr\data
+  # 输出图片路径
+  pic_path: C:\csi-fs\product\mrr\pic
+
+# 雨滴谱配置
+dsd:
+  # 算法程序exe路径
+  exe_path: C:\Users\Administrator\Desktop\gzfb_code\radar_analysis_pic\exe\DSD\DSD.exe
+  # 原始数据文件路径
+  origin_data: X:\csi-fs\product\origin_data\dsd
+  # 算法程序输出文件路径
+  exe_out_path: C:\csi-fs\product\dsd\data
+  # 输出图片路径
+  pic_path: C:\csi-fs\product\dsd\pic
+
+
+# 雨滴谱反演
+estimate_rainrate:
+  # 降水估测
+  rainrate_exe_path: C:\Users\Administrator\Desktop\gzfb_code\radar_analysis_pic\exe\estimate_rainrate\estimate_rainrate.exe
+  # 雨滴谱反演
+  dsd_exe_path: C:\Users\Administrator\Desktop\gzfb_code\radar_analysis_pic\exe\estimate_dsd\estimate_dsd.exe
+  exe_out_path: C:\csi-fs\product\rainrate\data
+  pic_path: C:\csi-fs\product\rainrate\pic
+  input_dir: X:\csi-fs\product\pol
+
+# 剖面图配置
+radar_section:
+  pic_path: C:\csi-fs\product\radar_section\pic
+  input_dir: X:\csi-fs\product\grb
+  polar_input_dir: X:\csi-fs\product\pol
+
+# 三维风场配置
+dda_wind:
+  exe_path: C:\Users\Administrator\Desktop\gzfb_code\radar_analysis_pic\exe\DDA_wind\DDAProcessNC.exe
+  input_dir: X:\csi-fs\product\raw
+  exe_out_path: C:\csi-fs\product\dda_wind\data
+  pic_path: C:\csi-fs\product\dda_wind\pic
+# c波段连续波雷达
+cwr:
+  # 算法程序exe路径
+  exe_path: C:\Users\Administrator\Desktop\gzfb_code\radar_analysis_pic\exe\CWR\CWR2.exe
+  # 原始数据文件路径
+  origin_data: X:\csi-fs\20220520
+  # 算法程序输出文件路径
+  exe_out_path: C:\csi-fs\product\cwr\data
+  # 输出图片路径
+  pic_path: C:\csi-fs\product\cwr\pic
+  # nc文件输出路径
+  nc_out_path: C:\Product\cwr\nc_data
+  # minio路径需要替换的部分
+  minio_disk: ""
+
+# 微波辐射计
+mwr:
+  exe_path: C:\Users\Administrator\Desktop\gzfb_code\radar_analysis_pic\exe\MWR\Microradimeter_min.exe
+  origin_data: X:\csi-fs\product\origin_data\mwr
+  # 算法程序输出文件路径
+  exe_out_path: C:\csi-fs\product\mwr\data
+  # 输出图片路径
+  pic_path: C:\csi-fs\product\mwr\pic
+  # 文件解压路径
+  temp_path: C:\csi-fs\product\mwr\temp
+
+# 云雷达
+cr:
+  # 算法程序exe路径
+  exe_path: C:\Users\Administrator\Desktop\gzfb_code\radar_analysis_pic\exe\CR\CR2.exe
+  # 算法程序输出文件路径
+  exe_out_path: C:\csi-fs\product\cr\data
+  # 输出图片路径
+  pic_path: C:\csi-fs\product\cr\pic
+  # minio路径需要替换的部分
+  minio_disk: ""
+  # 临时文件路径，存放原始数据解压后的文件
+  tmp_path: C:\csi-fs\product\cr\temp
+
+# 基本反射率区域配置
+ref:
+  input_dir: X:\csi-fs\product\grb
+  input_dir_polar: X:\csi-fs\product\pol
+  pic_path: C:\csi-fs\product\ref\pic
+
+# 风廓线雷达区域配置
+wind:
+  pic_path: C:\csi-fs\product\RDwind\pic
+
+# 效果分析配置
+effect_analysis:
+  input_dir_wind: X:\csi-fs\product\dda_wind
+  input_dir_grid: X:\csi-fs\product\grb
+  input_dir_polar: X:\csi-fs\product\pol
+  pic_path: C:\csi-fs\product\eff\pic
+
+# 天气雷达
+standard:
+  pic_path: C:\csi-fs\product\WeatherRadar\pic
+
+# FY4A卫星
+fy4a:
+  pic_path: C:\csi-fs\product\FY4A\pic
+
+# 立体三维展示
+spatial:
+  input_dir_grid: X:\csi-fs\product\grb
+  pic_path: C:\csi-fs\product\spatial_3d\pic
+
+# L波段探空
+ltk:
+  pic_path: C:\csi-fs\product\L_tk\pic
+
+# GPS探空
+gpstk:
+  pic_path: C:\csi-fs\product\GPS_tk\pic
+
+# 文件获取服务接口
+server:
+  # service_name: cl-arithmetic-service
+  # endpoint: /arithmetic/handleResult
+  # service_instances_url: http://nacos.clizard.team:8848/nacos/v1/ns/instance/list
+  # namespaceId: gzfb-project
+  # groupName: uat
+  headers: {'Content-Type': 'application/json'}
+  service_url: http://nacos.clizard.team:8848/nacos/v1/ns/instance/list
+  data_service_url: http://localhost:7000/
